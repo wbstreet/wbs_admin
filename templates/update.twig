@@ -1,0 +1,27 @@
+{% if module is empty %}
+    <p> Доступные модули не найдены </p>
+{% endif %}
+
+{% for module in modules %}
+    <span>
+        <span>{{ module.name }}</span>
+        <span>{{ module.version}}</span>
+        
+        {% if module.is_installed == 1 %}
+            <input type='button' value='Удалить'>
+        {% else %}
+            <input type='button' value='Установить'>
+        {% endif %}
+        
+        {% if module.is_installed == 1 and module.is_updated == 1 %}
+            <span>Установлена свежая версия</span>
+        {% elseif module.is_installed == 1 and module.is_updated == 0 %}
+            <input type='button' value='Обновить'
+        {% endif %}
+        
+        {% if module.is_installed == 1 %}
+            <input type='button' value='Откатить' title="установить предыдущую версию">
+        {% endif %}
+
+    </span>
+{% endfor %}

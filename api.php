@@ -269,6 +269,41 @@ if ($action=='window_icon') {
 
     print_success("Перемещено: {$count}");
 
+} else if ($action=='window_update') {
+
+    check_authed();
+    
+    /*
+    $modules = [$module1, .., $moduleN]
+    $module = ['name'=>'', 'version'=>'', 'is_installed'=>'', 'is_updated'=>'']
+    */
+    $modules = [];
+    
+    // подключаемся к гитхабу
+    
+    // получаем список модулей
+    
+    // ---- сверяем версии модулей и определяем кнопки: (установить) | (удалить, (обновить|установленаСвежаяВерсия))
+
+    print_success($twig->render('update.twig', [
+                'WB_URL'=>WB_URL,
+                'modules'=>$modules,
+        ]),
+            ['title'=>"Проверка обновлений"]
+    );    
+
+} else if ($action=='update_delete') {
+
+    check_authed();
+
+} else if ($action=='update_update') {
+
+    check_authed();
+
+} else if ($action=='update_install') {    
+
+    check_authed();
+
 } else {
     check_authed();
     print_error('неврный API');

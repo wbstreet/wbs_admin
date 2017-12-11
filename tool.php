@@ -65,7 +65,7 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
     <input type='button' value='Настройки переменных' onclick="W.open_by_api('window_variables', {data:{}, url:mod_settings.url_api})">
 
     <br><br>
-    <input type="button" value="Проверить обновления">
+    <input type="button" value="Проверить обновления" onclick="W.open_by_api('window_update', {data:{}, url:mod_settings.url_api})">
 
 <br><br>
 <h2>Расширенные настройки (требуют определённых знаний)</h2>
