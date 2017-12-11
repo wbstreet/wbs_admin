@@ -1,0 +1,14 @@
+{{ _registerEditArea|raw }}
+
+<script src='http://xn----7sbpsirn3a1f2a.xn--p1ai/include/editarea/edit_area_full.js'>
+</script>
+
+<form>
+    <input type='hidden' name='template' value='{{template}}'>
+    <input type='hidden' name='index' value='{{index}}'>
+
+    <textarea id="code_area" name='content' style="width: 100%;height: 700px;">{{ content|raw }}</textarea>
+    
+    <input type='button' value='Сохранить' onclick="sendform(this, 'save_css', {url:mod_settings.url_api})">
+
+</form>

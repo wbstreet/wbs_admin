@@ -1,0 +1,3 @@
+https://ru.wikipedia.org/wiki/Favicon
+http://www.favicon.by/
+https://github.com/chrisbliss18/php-ico
