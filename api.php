@@ -272,6 +272,24 @@ if ($action=='window_icon') {
 } else if ($action=='window_update') {
 
     check_authed();
+
+    /*function getGithub() {
+        //getcwd();
+        chdir(WB_PATH.'/modules/wbs_core/include/php-github-api-master/lib/');
+        include_once(WB_PATH.'/modules/wbs_core/include/php-github-api-master/lib/Github/Client.php');
+        $client = new \Github\Client();
+        return $client;
+    }
+    $client = getGithub();*/
+
+    /*include_once(WB_PATH.'/modules/wbs_core/include/github-php-client-master/client/GitHubClient.php');
+    $client = new GitHubClient();
+    $client->setPage();
+    $client->setPageSize(20);
+    $repos = $client->repos->listUserRepositories('shyzik93');
+    foreach($repos as $repo) {
+        print_success(json_encode(get_object_vars($repos)));
+    }*/
     
     /*
     $modules = [$module1, .., $moduleN]
