@@ -66,7 +66,7 @@ if ($action=='window_icon') {
 
     check_authed();
 
-    include(WB_PATH.'/include/modules/wbs_core/chrisbliss18/php-ico/class-php-ico.php');
+    include(WB_PATH.'/modules/wbs_core/include/php-ico-master/class-php-ico.php');
 
     $file_size = 500 * 1024; // в байтах
 
