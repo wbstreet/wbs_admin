@@ -206,32 +206,37 @@ if ($action=='window_icon') {
 
     $prefix = "customsettings_";    
     $variables = [
-        $prefix."feedback_email"=>"Email формы обратной связи",
+        $prefix."feedback_email"=>["Email формы обратной связи", "input"],
+        $prefix."counters"=>["Счётчики посещения сайта", "textarea"],
         ];
         
-    $variables_keys = array_keys($variables);
-    foreach($variables_keys as $i => $v) $variables_keys[$i] = "'".$v."'";
+    $variables_keys = glue_values(array_keys($variables));
+    //foreach($variables_keys as $i => $v) $variables_keys[$i] = "'".$v."'";
 
     // ----> добавить отсутствующие поля
-    $r = $database->query("SELECT * FROM `".TABLE_PREFIX."settings` WHERE `name` IN (".implode(",", $variables_keys).")");
+    $r = $database->query("SELECT * FROM `".TABLE_PREFIX."settings` WHERE `name` IN (".$variables_keys.")");
     if ($database->is_error()) print_error($database->get_error());
     $existed_keys = [];
     while ($row = $r->fetchRow(MYSQLI_ASSOC)) $existed_keys[] = $row['name'];
 
-    if (count($variables) !== count($existed_keys)) {
+    if (count($variables) > count($existed_keys)) {
         $inserts = [];
         foreach($variables as $name => $name_translate) {
             if (!in_array($name, $existed_keys)) $inserts[] = "('{$name}', '')";
         }
-        if (count($inserts) > 0) $database->query("INSERT INTO `".TABLE_PREFIX."settings` (`name`, `value`) VALUES ".implode(",", $inserts));
+        if (count($inserts) > 0) {
+            $r = $database->query("INSERT INTO `".TABLE_PREFIX."settings` (`name`, `value`) VALUES ".implode(",", $inserts));
+            if ($r != true) print_error($r);
+        }
     }
     // <<<------
 
     $_variables = [];
-    $r = $database->query("SELECT * FROM `".TABLE_PREFIX."settings` WHERE `name` IN (".implode(",", $variables_keys).")");
+    $r = $database->query("SELECT * FROM `".TABLE_PREFIX."settings` WHERE `name` IN (".$variables_keys.")");
     if ($database->is_error()) print_error($database->get_error());
     while ($row = $r->fetchRow(MYSQLI_ASSOC)) {
-        $row['name_translate'] = $variables[$row['name']];
+        $row['name_translate'] = $variables[$row['name']][0];
+        $row['field_type'] = $variables[$row['name']][1];
         $_variables[] = $row;
     }
     
@@ -247,7 +252,7 @@ if ($action=='window_icon') {
     check_authed();
 
     $name = $clsFilter->f('name', [['1', "Не указано имя!"]], 'fatal');
-    $value = $clsFilter->f('value', [['1', "Не указано имя!"]], 'fatal');
+    $value = $clsFilter->f('value', [['1', "Не указано значение!"]], 'fatal');
     
     $r = $database->query("UPDATE `".TABLE_PREFIX."settings` SET `value`='$value' WHERE `name` = '$name' ");
     if ($database->is_error()) print_error($database->get_error());

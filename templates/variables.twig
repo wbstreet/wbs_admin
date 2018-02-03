@@ -1,13 +1,14 @@
-<form id="form_variable">
-
-    {% for variable in variables %}
-        <form>
-            <input type="hidden" name="name" value="{{ variable.name }}">
-            {{ variable.name_translate }}: <input name="value" type="text" value="{{ variable.value }}" onkeyup="sendform(this, 'save_variables', {data:{}, form: document.getElementById('form_variable'), url:mod_settings.url_api});"><br>
-        </form>
-    {% endfor %}
-
-</form>
+{% for variable in variables %}
+    <form>
+        <input type="hidden" name="name" value="{{ variable.name }}">
+        {{ variable.name_translate }}:
+        {% if variable.field_type == "input" %}
+            <input name="value" type="text" value="{{ variable.value }}" onkeyup="sendform(this, 'save_variables', {url:mod_settings.url_api});"><br>
+        {% elseif variable.field_type == "textarea" %}
+            <br><textarea cols="50" rows="15" name="value" onkeyup="sendform(this, 'save_variables', {url:mod_settings.url_api});">{{ variable.value }}</textarea>
+        {% endif %}
+    </form>
+{% endfor %}
 
 <!--
 <br><br><br>
