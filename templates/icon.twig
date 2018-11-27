@@ -1,6 +1,6 @@
 <div style='border:1px solid #ccc; background: #eee; border-radius: 0 10px 10px 10px;'>
-    Текущая иконка: <img src='{{ WB_URL }}/favicon.ico' id='old_icon'> <br>
+    Текущая иконка: <img src='{{ favicon_url }}' id='old_icon'> <br>
     <form>
-        Новая иконка: <img id="new_icon" style='width:32px;height:32px;' src='{{ WB_URL }}/favicon.ico'> <input type='file' value='Выбрать новую' name='icon' onchange="show_image(this, document.getElementById('new_icon'))"> <input type='button' value='Сохранить' onclick="sendform(this, 'load_icon', {url:mod_settings.url_api, func_success:function(res, arg) {var img = document.getElementById('old_icon'); img.src = update_time_mark(img.src)}})">
+        Новая иконка: <img id="new_icon" style='width:32px;height:32px;' src='{{ favicon_url }}'> <input type='file' value='Выбрать новую' name='icon' onchange="show_image(this, document.getElementById('new_icon'))"> <input type='button' value='Сохранить' onclick="sendform(this, 'load_icon', {url:mod_settings.url_api, func_success:function(res, arg) {var img = document.getElementById('old_icon'); img.src = update_time_mark(img.src)}})">
     </form>
 </div>

@@ -58,6 +58,7 @@ if ($action=='window_icon') {
    	  $twig->render('icon.twig', [
 	//	'FTAN'=>$admin->getFTAN(),
 		'WB_URL'=>WB_URL,
+                "favicon_url"=>WB_URL."/favicon.ico?t=".time(),
       ]),
    	  ['title'=>'Иконка сайта']
    );
