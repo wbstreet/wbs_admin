@@ -364,7 +364,7 @@ if ($action=='window_icon') {
         $r = update_row(TABLE_PREFIX."mod_wbs_core_any_variables", $fields, "`variable_id`=".process_value($variable_id));
         if (gettype($r) === "string") print_error($r);
     } else { // добавляем новую
-        $r = insert_row_uniq_deletable(TABLE_PREFIX."mod_wbs_core_any_variables", $fields, ["variable_code_name"], "variable_id");
+        $r = insert_row_uniq_deletable(TABLE_PREFIX."mod_wbs_core_any_variables", $fields, ["variable_lang", "variable_code_name"], "variable_id");
         if (gettype($r) === "string") print_error($r);
         else if (gettype($r) === "integer") $variable_id = $r;
     }
