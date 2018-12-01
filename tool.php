@@ -63,6 +63,8 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
     <br>
     <input type="button" value="Цветовая схема">
     <input type='button' value='Настройки переменных' onclick="W.open_by_api('window_variables', {data:{}, url:mod_settings.url_api})">
+    <br>
+    <input type='button' value='Произвольные переменные' onclick="W.open_by_api('window_any_variables', {data:{}, url:mod_settings.url_api})">
 
     <br><br>
     <input type="button" value="Проверить обновления" onclick="W.open_by_api('window_update', {data:{}, url:mod_settings.url_api})">

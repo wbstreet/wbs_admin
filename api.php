@@ -327,6 +327,49 @@ if ($action=='window_icon') {
 } else if ($action=='update_install') {    
 
     check_authed();
+} else if ($action=='window_any_variables') {    
+
+    check_authed();
+    
+    $variables = [];
+    
+    $r = select_row(TABLE_PREFIX."mod_wbs_core_any_variables", "*");
+    if (gettype($r) === "string") print_error($r);
+
+    while($r !== null && $variable = $r->fetchRow(MYSQLI_ASSOC)) {
+        $variables[] = $variable;
+    }
+    
+    print_success($twig->render('any_variables.twig', [
+       'WB_URL'=>WB_URL,
+       'variables'=>$variables
+       ]), ['title'=>"Произвольные переменные"]
+    );  
+
+} else if ($action=='save_any_variable') {
+
+    check_authed();
+    
+    $variable_id = $_POST["id"];
+
+    $fields = [
+        "variable_lang" => $_POST["lang"],
+        "variable_code_name" => $_POST["code_name"],
+        "variable_name" => $_POST["name"],
+        "variable_value" => $_POST["value"],
+    ];
+    
+    if (is_numeric($variable_id)) { // обновляем запись
+        //$fields["variable_id"] = $variable_id;
+        $r = update_row(TABLE_PREFIX."mod_wbs_core_any_variables", $fields, "`variable_id`=".process_value($variable_id));
+        if (gettype($r) === "string") print_error($r);
+    } else { // добавляем новую
+        $r = insert_row_uniq_deletable(TABLE_PREFIX."mod_wbs_core_any_variables", $fields, ["variable_code_name"], "variable_id");
+        if (gettype($r) === "string") print_error($r);
+        else if (gettype($r) === "integer") $variable_id = $r;
+    }
+    
+    print_success("Сохранено!", ["data"=>["id"=>$variable_id]]);
 
 } else {
     check_authed();
