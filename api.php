@@ -357,6 +357,7 @@ if ($action=='window_icon') {
         "variable_code_name" => $_POST["code_name"],
         "variable_name" => $_POST["name"],
         "variable_value" => $_POST["value"],
+        "variable_is_active" => $_POST["is_active"] === "true" ? '1' : '0',
     ];
     
     if (is_numeric($variable_id)) { // обновляем запись

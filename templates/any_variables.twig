@@ -1,10 +1,11 @@
-{% macro variable_item(code_name, name, value, lang, id, hide) %}
+{% macro variable_item(code_name, name, value, lang, id, is_active, hide) %}
     <form {% if hide == 1 %} style="display:none;" {% endif %} onchange="save_variable(this);">
         <input type="hidden" name="id" value="{{ id }}">
         <span><input type="text" name="lang" value="{{ lang }}" size="3"></span>
         <span><input type="text" name="code_name" value="{{ code_name }}"></span>
         <span><input type="text" name="name" value="{{ name }}"></span>
         <span><input type="text" name="value" value="{{ value }}"></span>
+        <span><input type="checkbox" name="is_active" {% if is_active %} checked {% endif %}></span>
     </form>
 {% endmacro %}
 {% import _self as v %}
@@ -36,10 +37,10 @@
         <span>Название</span>
         <span>Значение</span>
     </div>
-    {{ v.variable_item("", "", "", "", "", 1) }}
+    {{ v.variable_item("", "", "", "", "", "", 1) }}
     {% for variable in variables %}
-        {{ v.variable_item(variable.variable_code_name, variable.variable_name, variable.variable_value, variable.variable_lang, variable.variable_id) }}
+        {{ v.variable_item(variable.variable_code_name, variable.variable_name, variable.variable_value, variable.variable_lang, variable.variable_id, variable.variable_is_active) }}
     {% endfor %}
 </div>
 
-<input type="button" value="Добавить новую" onclick="new_variable(this);"> 
+<input type="button" value="Добавить новую" onclick="new_variable(this);">
