@@ -255,7 +255,7 @@ if ($action=='window_icon') {
     $name = $clsFilter->f('name', [['1', "Не указано имя!"]], 'fatal');
     $value = $clsFilter->f('value', [['1', "Не указано значение!"]], 'fatal');
     
-    $r = $database->query("UPDATE `".TABLE_PREFIX."settings` SET `value`='$value' WHERE `name` = '$name' ");
+    $r = $database->query("UPDATE `".TABLE_PREFIX."settings` SET `value`='".$database->escapeString($value)."' WHERE `name` = '".$database->escapeString($name)."' ");
     if ($database->is_error()) print_error($database->get_error());
 
     print_success("Сохранено!");
